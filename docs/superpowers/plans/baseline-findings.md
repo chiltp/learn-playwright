@@ -38,3 +38,23 @@ Tested 3 scenarios with explicit rules in the prompt (hints not answers, cafe an
 3. Hard rule: Every challenge gets a cafe-themed name.
 4. Hard rule: Don't introduce concepts from future phases or advanced topics in current-phase lessons.
 5. Red flags list: "Giving away a method name in a hint" should be explicitly called out.
+
+---
+
+## GREEN Phase: What agents do WITH the skill
+
+Re-ran all 3 scenarios with SKILL.md and curriculum.md loaded.
+
+### Improvements Confirmed
+1. **Hint discipline:** Lesson mode used blanks `______()` instead of naming the method. Challenge hint gave directional guidance only (inspect the page). Major improvement.
+2. **One concept at a time:** Challenge was single-focused ("sort by price and verify the whole list"). No multi-part overload.
+3. **Themed challenge names:** "Espresso Menu Board Challenge" — cafe-themed as required.
+4. **No scope creep:** No mention of custom dropdowns or future-phase concepts.
+5. **Review mode:** Maintained strong Socratic approach. Caught waitForTimeout, single-item assertion, missing POM pattern. No code fixes given.
+
+### Minor Remaining Gaps
+1. **Process of elimination:** Lesson mode said "NOT fill() and NOT click()" — smart learners can narrow down from elimination. Not a hard failure but could be tighter.
+2. **Exercise sub-parts:** Lesson exercise asked for both a locator AND a method in the InventoryPage — borderline 2 tasks, though they're logically one unit (building the page object).
+
+### Assessment
+All 5 critical baseline gaps are fixed. The 2 remaining items are minor refinements for REFACTOR phase.
