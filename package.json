@@ -1,21 +1,20 @@
 {
   "name": "learn-playwright",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {},
+  "description": "Playwright E2E test automation practice using SauceDemo",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:chromium": "npx playwright test --project=chromium",
+    "test:headed": "npx playwright test --headed",
+    "report": "npx playwright show-report"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chiltp/learn-playwright.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["playwright", "e2e", "automation", "testing"],
+  "author": "Chi Luong",
   "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/chiltp/learn-playwright/issues"
-  },
-  "homepage": "https://github.com/chiltp/learn-playwright#readme",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.5.0"
