@@ -5,7 +5,6 @@ const { defineConfig, devices } = require('@playwright/test');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
-  testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -13,24 +12,28 @@ module.exports = defineConfig({
   reporter: 'html',
 
   use: {
-    baseURL: 'https://www.saucedemo.com',
     screenshot: 'only-on-failure',
     trace: 'on-first-retry',
   },
 
   projects: [
+    // SauceDemo tests
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'saucedemo',
+      testDir: './tests/saucedemo',
+      use: {
+        baseURL: 'https://www.saucedemo.com',
+        ...devices['Desktop Chrome'],
+      },
     },
+    // TodoMVC tests
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: 'todomvc',
+      testDir: './tests/todomvc',
+      use: {
+        baseURL: 'https://todomvc.com/examples/react/dist/',
+        ...devices['Desktop Chrome'],
+      },
     },
   ],
 });
-

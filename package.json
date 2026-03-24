@@ -1,10 +1,11 @@
 {
   "name": "learn-playwright",
   "version": "1.0.0",
-  "description": "Playwright E2E test automation practice using SauceDemo",
+  "description": "Playwright E2E test automation practice using SauceDemo and TodoMVC",
   "scripts": {
     "test": "npx playwright test",
-    "test:chromium": "npx playwright test --project=chromium",
+    "test:saucedemo": "npx playwright test --project=saucedemo",
+    "test:todomvc": "npx playwright test --project=todomvc",
     "test:headed": "npx playwright test --headed",
     "report": "npx playwright show-report"
   },
