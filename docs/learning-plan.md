@@ -68,6 +68,31 @@ Learn Playwright from scratch by writing E2E tests against real web apps, one te
 
 ---
 
+## Project 3: API Testing with Playwright
+
+### Phase 1 — API Fundamentals
+1. What is a REST API
+2. HTTP methods: GET, POST, PUT, DELETE
+3. Status codes: 200, 201, 404, 500
+4. Request & response structure (headers, body, JSON)
+
+### Phase 2 — API Testing with Playwright
+5. Make a GET request
+6. Make a POST request (create data)
+7. Test PUT (update) and DELETE
+8. Assert status codes, response body, headers
+
+### Phase 3 — Real API Practice
+9. Test a public API (JSONPlaceholder)
+10. Build an ApiClient page object (POM for APIs)
+11. Test CRUD operations end-to-end
+
+### Phase 4 — Combining UI + API
+12. Use API to set up test data, then verify in the browser
+13. Use API to clean up after tests
+
+---
+
 ## Concept Introduction Order
 
 | When | Concept |
@@ -82,3 +107,7 @@ Learn Playwright from scratch by writing E2E tests against real web apps, one te
 | Phase 4 | Multi-step flows, chaining page objects |
 | TodoMVC | data-testid, getByRole(), check()/uncheck(), dblclick(), page.reload(), hover-to-reveal UI patterns |
 | Repo restructure | Multiple projects in playwright.config.js |
+| API Phase 1 | REST API concepts, HTTP methods, status codes, JSON |
+| API Phase 2 | request.get(), request.post(), request.put(), request.delete() |
+| API Phase 3 | ApiClient pattern (POM for APIs), CRUD testing |
+| API Phase 4 | API + UI combined testing, test data setup/cleanup |
