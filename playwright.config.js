@@ -35,5 +35,13 @@ module.exports = defineConfig({
         ...devices['Desktop Chrome'],
       },
     },
+    // API tests
+    {
+      name: 'api',
+      testDir: './tests/api',
+      use: {
+        baseURL: 'https://jsonplaceholder.typicode.com',
+      },
+    },
   ],
 });
