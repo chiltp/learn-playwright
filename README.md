@@ -1,13 +1,14 @@
 # Learn Playwright
 
-E2E test automation practice using [Playwright](https://playwright.dev/) against two web apps:
+Test automation practice using [Playwright](https://playwright.dev/) — covering E2E browser testing and API testing:
 
 - [SauceDemo](https://www.saucedemo.com/) — a demo e-commerce site built for testing
 - [TodoMVC (React)](https://todomvc.com/examples/react/dist/) — a classic todo app for comparing frameworks
+- [JSONPlaceholder](https://jsonplaceholder.typicode.com/) — a free fake REST API for testing
 
 ## What This Covers
 
-### SauceDemo (17 tests)
+### SauceDemo — E2E Browser Tests
 
 | Test Suite | Scenarios |
 |---|---|
@@ -16,7 +17,7 @@ E2E test automation practice using [Playwright](https://playwright.dev/) against
 | **Cart** | Add/remove items, cart badge, item persistence, exact name verification |
 | **Checkout** | Complete purchase flow, form validation errors, confirmation page |
 
-### TodoMVC (11 tests)
+### TodoMVC — E2E Browser Tests
 
 | Test Suite | Scenarios |
 |---|---|
@@ -26,25 +27,22 @@ E2E test automation practice using [Playwright](https://playwright.dev/) against
 | **Footer** | Item count, Clear completed |
 | **Persistence** | Verify behavior on page reload |
 
+### JSONPlaceholder — API Tests
+
+| Test Suite | Scenarios |
+|---|---|
+| **CRUD** | GET single/all posts, POST create, PUT update, DELETE |
+| **Filtering** | Query params (`?userId=1`), verify filtered results |
+| **Negative** | 404 for non-existent resources |
+
 ## Project Structure
 
 ```
 tests/
-  saucedemo/              # E-commerce app tests
-    pages/
-      LoginPage.js
-      InventoryPage.js
-      CartPage.js
-      CheckoutPage.js
-    login.spec.js
-    inventory.spec.js
-    cart.spec.js
-    checkout.spec.js
-  todomvc/                # Todo app tests
-    pages/
-      TodoPage.js
-    todo.spec.js
-playwright.config.js      # Two projects: saucedemo + todomvc
+├── saucedemo/              # E-commerce E2E: login, inventory, cart, checkout
+├── todomvc/                # Todo app E2E: CRUD, filtering, editing, persistence
+└── api/                    # REST API testing (no browser needed)
+playwright.config.js        # Three projects: saucedemo, todomvc, api
 ```
 
 ## Running Tests
@@ -54,7 +52,7 @@ playwright.config.js      # Two projects: saucedemo + todomvc
 npm install
 npx playwright install
 
-# Run all tests (both projects)
+# Run all tests (all projects)
 npm test
 
 # Run only SauceDemo tests
@@ -62,6 +60,9 @@ npm run test:saucedemo
 
 # Run only TodoMVC tests
 npm run test:todomvc
+
+# Run only API tests
+npm run test:api
 
 # Run in headed mode (see the browser)
 npm run test:headed
@@ -72,8 +73,9 @@ npm run report
 
 ## Key Patterns Used
 
-- **Page Object Model** — each page has its own class with selectors and actions, keeping tests readable and maintainable
+- **Page Object Model** — each page/API has its own class with selectors and actions, keeping tests readable and maintainable
 - **`data-test` / `data-testid` selectors** — using test-specific attributes instead of fragile CSS selectors
 - **`getByRole()` locators** — semantic queries for elements without test IDs (links, buttons)
 - **Partial attribute selectors** — `[data-test^="add-to-cart"]` (starts with), `[data-test$="-img"]` (ends with) for dynamic attributes
-- **Multiple project configuration** — single config file running tests against different apps
+- **API testing with `request`** — testing REST APIs directly without a browser
+- **Multiple project configuration** — single config file running tests against different apps and APIs
