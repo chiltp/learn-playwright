@@ -40,8 +40,14 @@ Test automation practice using [Playwright](https://playwright.dev/) — coverin
 ```
 tests/
 ├── saucedemo/              # E-commerce E2E: login, inventory, cart, checkout
+│   ├── pages/              # Page objects: LoginPage, InventoryPage, CartPage, CheckoutPage
+│   └── *.spec.js           # Test suites: one per page/feature
 ├── todomvc/                # Todo app E2E: CRUD, filtering, editing, persistence
+│   ├── pages/              # Page objects: TodoPage
+│   └── todo.spec.js
 └── api/                    # REST API testing (no browser needed)
+    ├── ApiClient.js        # API page object: wraps HTTP methods into readable actions
+    └── posts.spec.js
 playwright.config.js        # Three projects: saucedemo, todomvc, api
 ```
 
