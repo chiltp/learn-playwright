@@ -87,9 +87,44 @@ Learn Playwright from scratch by writing E2E tests against real web apps, one te
 10. Build an ApiClient page object (POM for APIs)
 11. Test CRUD operations end-to-end
 
-### Phase 4 — Combining UI + API
+### Phase 4 — Combining UI + API (Completed — concepts only, no practice app with both UI + API available)
 12. Use API to set up test data, then verify in the browser
 13. Use API to clean up after tests
+
+---
+
+## Interview Prep: Advanced Topics to Study
+
+Topics commonly asked in Playwright/automation interviews that go beyond the project exercises. See `docs/interview-prep.md` for full Q&A.
+
+### Network Interception & Mocking
+- `page.route()` — intercept, mock, or block network requests
+- `route.fulfill()` vs `route.continue()` vs `route.abort()`
+- Testing UI error states by mocking failed API responses
+- Blocking resources (images, ads) for faster tests
+
+### Custom Fixtures
+- Extending `test` with `base.extend()` to include page objects
+- Auto-login fixtures (pre-authenticated page)
+- `storageState` — save/reuse cookies and auth across tests
+- `globalSetup` — run once before all tests (e.g., login, seed data)
+
+### CI/CD Integration
+- GitHub Actions workflow for Playwright
+- CI-specific config: retries, single worker, traces, screenshots
+- Uploading HTML reports as artifacts
+- Handling auth in CI with environment variables + `globalSetup`
+
+### Visual Regression Testing
+- `toHaveScreenshot()` — compare UI against baselines
+- `--update-snapshots` to refresh baselines after intentional changes
+- Masking dynamic content (timestamps, animations)
+- When to use visual tests vs functional assertions
+
+### Advanced Patterns
+- Lazy-loaded content: `waitFor()`, `waitForLoadState()`, `waitForResponse()`
+- File upload (`setInputFiles()`) and download (`waitForEvent('download')`)
+- Multiple auth states per project (admin vs user)
 
 ---
 
@@ -111,3 +146,4 @@ Learn Playwright from scratch by writing E2E tests against real web apps, one te
 | API Phase 2 | request.get(), request.post(), request.put(), request.delete() |
 | API Phase 3 | ApiClient pattern (POM for APIs), CRUD testing |
 | API Phase 4 | API + UI combined testing, test data setup/cleanup |
+| Interview Prep | Network interception (`page.route()`), custom fixtures (`base.extend()`), `storageState`, `globalSetup`, CI/CD (GitHub Actions), visual regression (`toHaveScreenshot()`), file upload/download |
