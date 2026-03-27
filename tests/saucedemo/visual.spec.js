@@ -3,6 +3,7 @@ const { LoginPage } = require('./pages/LoginPage');
 
 test.describe('Visual Regression', () => {
     let loginPage;
+    test.skip(!!process.env.CI, 'Visual tests are skipped in CI — baselines are OS-specific');
 
     // Navigate to the login page before each test
     test.beforeEach(async ({ page }) => {
