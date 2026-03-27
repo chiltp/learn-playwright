@@ -46,8 +46,9 @@ tests/
 │   ├── pages/              # Page objects: TodoPage
 │   └── todo.spec.js
 └── api/                    # REST API testing (no browser needed)
-    ├── ApiClient.js        # API page object: wraps HTTP methods into readable actions
-    └── posts.spec.js
+    ├── pages/              # API page objects: PostsClient, UsersClient
+    ├── posts.spec.js
+    └── users.spec.js
 playwright.config.js        # Three projects: saucedemo, todomvc, api
 ```
 
