@@ -4,8 +4,8 @@
   "description": "Playwright test automation practice — E2E browser tests and API tests",
   "scripts": {
     "test": "npx playwright test",
-    "test:saucedemo": "npx playwright test --project=saucedemo",
-    "test:todomvc": "npx playwright test --project=todomvc",
+    "test:saucedemo": "npx playwright test --project=saucedemo-chromium --project=saucedemo-firefox --project=saucedemo-webkit",
+    "test:todomvc": "npx playwright test --project=todomvc-chromium --project=todomvc-firefox --project=todomvc-webkit",
     "test:api": "npx playwright test --project=api",
     "test:headed": "npx playwright test --headed",
     "report": "npx playwright show-report"

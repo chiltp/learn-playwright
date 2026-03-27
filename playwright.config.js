@@ -19,20 +19,56 @@ module.exports = defineConfig({
   projects: [
     // SauceDemo tests
     {
-      name: 'saucedemo',
+      name: 'saucedemo-chromium',
       testDir: './tests/saucedemo',
       use: {
         baseURL: 'https://www.saucedemo.com',
         ...devices['Desktop Chrome'],
       },
     },
+    // SauceDemo tests
+    {
+      name: 'saucedemo-firefox',
+      testDir: './tests/saucedemo',
+      use: {
+        baseURL: 'https://www.saucedemo.com',
+        ...devices['Desktop Firefox'],
+      },
+    },
+     // SauceDemo tests
+    {
+      name: 'saucedemo-webkit',
+      testDir: './tests/saucedemo',
+      use: {
+        baseURL: 'https://www.saucedemo.com',
+        ...devices['Desktop Safari'],
+      },
+    },
     // TodoMVC tests
     {
-      name: 'todomvc',
+      name: 'todomvc-chromium',
       testDir: './tests/todomvc',
       use: {
         baseURL: 'https://todomvc.com/examples/react/dist/',
         ...devices['Desktop Chrome'],
+      },
+    },
+    // TodoMVC tests
+    {
+      name: 'todomvc-firefox',
+      testDir: './tests/todomvc',
+      use: {
+        baseURL: 'https://todomvc.com/examples/react/dist/',
+        ...devices['Desktop Firefox'],
+      },
+    },
+     // TodoMVC tests
+    {
+      name: 'todomvc-webkit',
+      testDir: './tests/todomvc',
+      use: {
+        baseURL: 'https://todomvc.com/examples/react/dist/',
+        ...devices['Desktop Safari'],
       },
     },
     // API tests
