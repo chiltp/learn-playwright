@@ -1,5 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const { ApiClient } = require("./ApiClient");
+const { PostsClient } = require("./pages/PostsClient");
 
 // API Testing Cheat Sheet (bakery analogy):
 //
@@ -14,16 +14,16 @@ const { ApiClient } = require("./ApiClient");
 //   await response.json() = you picking up the receipt and reading it (parsed data)
 
 test.describe('Posts API', () => {
-    let apiClient;
+    let postsClient;
 
     // Initialize the API client before all tests
     test.beforeEach(async ({ request }) => {
-        apiClient = new ApiClient(request);
+        postsClient = new PostsClient(request);
     });
 
     // GET single — fetch one post by ID
     test('should fetch a single post by ID', async () => {
-        const response = await apiClient.getPost(1);
+        const response = await postsClient.getPost(1);
         const post = await response.json();
 
         expect(response.status()).toBe(200);
@@ -33,7 +33,7 @@ test.describe('Posts API', () => {
 
     // GET all — fetch the entire list
     test('should retrieve a list of posts', async () => {
-        const response = await apiClient.getAllPosts();
+        const response = await postsClient.getAllPosts();
         const posts = await response.json();
 
         expect(response.status()).toBe(200);
@@ -47,7 +47,7 @@ test.describe('Posts API', () => {
             body: "This is the content.",
             userId: 1
         };
-        const response = await apiClient.createPost(newPost);
+        const response = await postsClient.createPost(newPost);
         const createdPost = await response.json();
 
         expect(response.status()).toBe(201);
@@ -63,7 +63,7 @@ test.describe('Posts API', () => {
             userId: 1
         };
 
-        const response = await apiClient.updatePost(1, updatedPost);
+        const response = await postsClient.updatePost(1, updatedPost);
         const post = await response.json();
 
         expect(response.status()).toBe(200);
@@ -73,7 +73,7 @@ test.describe('Posts API', () => {
 
     // DELETE — remove a post by ID (no body needed)
     test('should delete a post', async () => {
-        const response = await apiClient.deletePost(1);
+        const response = await postsClient.deletePost(1);
         expect(response.status()).toBe(200);
     });
 
@@ -91,7 +91,7 @@ test.describe('Posts API', () => {
 
     // Negative test — request a resource that doesn't exist
     test('should return 404 for non-existent post', async () => {
-        const response = await apiClient.getPost(9999);
+        const response = await postsClient.getPost(9999);
         expect(response.status()).toBe(404);
     });
 });

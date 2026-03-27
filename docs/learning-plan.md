@@ -93,6 +93,45 @@ Learn Playwright from scratch by writing E2E tests against real web apps, one te
 
 ---
 
+## Project 4: Cross-Browser Testing
+
+### Phase 1 — Multi-Browser Setup
+1. Add Firefox and WebKit projects to `playwright.config.js`
+2. Run existing tests across all three browsers
+3. Understand browser differences (rendering, timing)
+
+### Phase 2 — Browser-Specific Strategies
+4. Run a single project: `--project=firefox`
+5. Handle browser-specific quirks (if any tests fail)
+6. Configure retries per project
+
+---
+
+## Project 5: Visual Regression Testing
+
+### Phase 1 — Screenshot Basics
+1. Take a full-page screenshot with `toHaveScreenshot()`
+2. Run again — see it pass (matches baseline)
+3. Understand the snapshot folder structure
+
+### Phase 2 — Handling Dynamic Content
+4. Mask dynamic elements (timestamps, animations) with `mask` option
+5. Set `maxDiffPixels` or `threshold` for acceptable differences
+6. Use element-level screenshots (screenshot a single component, not the full page)
+
+### Phase 3 — Updating & Managing Baselines
+7. Make an intentional UI change, see the test fail
+8. Update snapshots with `--update-snapshots`
+9. When to use visual tests vs functional assertions
+
+### Phase 4 — Practice on SauceDemo
+10. Visual test: login page appearance
+11. Visual test: inventory page layout
+12. Visual test: cart page with items
+13. Compare screenshots across browsers (ties Project 4 + 5 together)
+
+---
+
 ## Interview Prep: Advanced Topics to Study
 
 Topics commonly asked in Playwright/automation interviews that go beyond the project exercises. See `docs/interview-prep.md` for full Q&A.
@@ -146,4 +185,6 @@ Topics commonly asked in Playwright/automation interviews that go beyond the pro
 | API Phase 2 | request.get(), request.post(), request.put(), request.delete() |
 | API Phase 3 | ApiClient pattern (POM for APIs), CRUD testing |
 | API Phase 4 | API + UI combined testing, test data setup/cleanup |
-| Interview Prep | Network interception (`page.route()`), custom fixtures (`base.extend()`), `storageState`, `globalSetup`, CI/CD (GitHub Actions), visual regression (`toHaveScreenshot()`), file upload/download |
+| Cross-Browser | Multiple browser projects in config, `--project` flag, browser-specific retries |
+| Visual Regression | `toHaveScreenshot()`, snapshot baselines, `--update-snapshots`, `mask`, `maxDiffPixels`, element screenshots |
+| Interview Prep | Network interception (`page.route()`), custom fixtures (`base.extend()`), `storageState`, `globalSetup`, CI/CD (GitHub Actions), file upload/download |

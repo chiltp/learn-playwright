@@ -1,4 +1,4 @@
-class ApiClient {
+class PostsClient {
     constructor(request) {
         this.request = request;
     }
@@ -33,4 +33,4 @@ class ApiClient {
     }
 }
 
-module.exports = { ApiClient };
+module.exports = { PostsClient };
