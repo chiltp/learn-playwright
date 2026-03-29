@@ -12,6 +12,7 @@ class InventoryPage {
         this.productImage = page.locator('[data-test$="-img"]'); // Partial match: each image has a unique data-test ending in "-img"
 
         // Cart actions
+        this.cartButton = page.locator('[data-test="shopping-cart-link"]');
         this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
         this.addToCartButton = page.locator('[data-test^="add-to-cart"]'); // Partial match: each button starts with "add-to-cart"
         this.removeButton = page.locator('[data-test^="remove-"]'); // Partial match: each button starts with "remove-"

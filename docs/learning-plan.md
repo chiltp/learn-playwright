@@ -107,24 +107,24 @@ Learn Playwright from scratch by writing E2E tests against real web apps, one te
 
 ---
 
-## Project 5: Visual Regression Testing
+## Project 5: Visual Regression Testing (Completed)
 
-### Phase 1 — Screenshot Basics
+### Phase 1 — Screenshot Basics (Completed)
 1. Take a full-page screenshot with `toHaveScreenshot()`
 2. Run again — see it pass (matches baseline)
 3. Understand the snapshot folder structure
 
-### Phase 2 — Handling Dynamic Content
+### Phase 2 — Handling Dynamic Content (Completed)
 4. Mask dynamic elements (timestamps, animations) with `mask` option
 5. Set `maxDiffPixels` or `threshold` for acceptable differences
 6. Use element-level screenshots (screenshot a single component, not the full page)
 
-### Phase 3 — Updating & Managing Baselines
+### Phase 3 — Updating & Managing Baselines (Completed)
 7. Make an intentional UI change, see the test fail
 8. Update snapshots with `--update-snapshots`
 9. When to use visual tests vs functional assertions
 
-### Phase 4 — Practice on SauceDemo
+### Phase 4 — Practice on SauceDemo (Completed)
 10. Visual test: login page appearance
 11. Visual test: inventory page layout
 12. Visual test: cart page with items
@@ -132,38 +132,34 @@ Learn Playwright from scratch by writing E2E tests against real web apps, one te
 
 ---
 
-## Interview Prep: Advanced Topics to Study
+## Project 6: Interview Prep — Advanced Topics
 
-Topics commonly asked in Playwright/automation interviews that go beyond the project exercises. See `docs/interview-prep.md` for full Q&A.
+Hands-on practice with advanced Playwright topics commonly asked in interviews. Each phase builds working tests, not just theory. See `docs/interview-prep.md` for Q&A study guide.
 
-### Network Interception & Mocking
-- `page.route()` — intercept, mock, or block network requests
-- `route.fulfill()` vs `route.continue()` vs `route.abort()`
-- Testing UI error states by mocking failed API responses
-- Blocking resources (images, ads) for faster tests
+### Phase 1 — Network Interception & Mocking
+1. Learn `page.route()` — intercept a request and log it
+2. Mock an API response with `route.fulfill()` — return fake data and verify the UI renders it
+3. Simulate a server error (500) — verify the UI handles failure gracefully
+4. Block resources (images) with `route.abort()` — verify page loads faster
+5. Use `route.continue()` to modify a request before it reaches the server
 
-### Custom Fixtures
-- Extending `test` with `base.extend()` to include page objects
-- Auto-login fixtures (pre-authenticated page)
-- `storageState` — save/reuse cookies and auth across tests
-- `globalSetup` — run once before all tests (e.g., login, seed data)
+### Phase 2 — Custom Fixtures
+6. Create a custom fixture with `base.extend()` — provide a page object automatically
+7. Build an auto-login fixture — tests receive a pre-authenticated page
+8. Use `storageState` — save auth cookies once, reuse across all tests
+9. Set up `globalSetup` — run login once before the entire test suite
 
-### CI/CD Integration
-- GitHub Actions workflow for Playwright
-- CI-specific config: retries, single worker, traces, screenshots
-- Uploading HTML reports as artifacts
-- Handling auth in CI with environment variables + `globalSetup`
+### Phase 3 — CI/CD Integration
+10. Review existing GitHub Actions workflow and understand each step
+11. Configure CI-specific settings: retries, single worker, traces, screenshots
+12. Upload HTML report as an artifact — download and view after a CI run
+13. Handle auth in CI with environment variables + `globalSetup`
 
-### Visual Regression Testing
-- `toHaveScreenshot()` — compare UI against baselines
-- `--update-snapshots` to refresh baselines after intentional changes
-- Masking dynamic content (timestamps, animations)
-- When to use visual tests vs functional assertions
-
-### Advanced Patterns
-- Lazy-loaded content: `waitFor()`, `waitForLoadState()`, `waitForResponse()`
-- File upload (`setInputFiles()`) and download (`waitForEvent('download')`)
-- Multiple auth states per project (admin vs user)
+### Phase 4 — Advanced Patterns
+14. Handle lazy-loaded content with `waitFor()` and `waitForResponse()`
+15. Test file upload with `setInputFiles()`
+16. Test file download with `waitForEvent('download')`
+17. Set up multiple auth states per project (admin vs regular user)
 
 ---
 
