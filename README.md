@@ -1,6 +1,6 @@
 # Learn Playwright
 
-Test automation practice using [Playwright](https://playwright.dev/) — covering E2E browser testing and API testing:
+Test automation practice using [Playwright](https://playwright.dev/) — covering E2E browser testing, API testing, cross-browser testing, and visual regression testing:
 
 - [SauceDemo](https://www.saucedemo.com/) — a demo e-commerce site built for testing
 - [TodoMVC (React)](https://todomvc.com/examples/react/dist/) — a classic todo app for comparing frameworks
@@ -35,12 +35,27 @@ Test automation practice using [Playwright](https://playwright.dev/) — coverin
 | **Filtering** | Query params (`?userId=1`), verify filtered results |
 | **Negative** | 404 for non-existent resources |
 
+### Cross-Browser Testing
+
+All SauceDemo and TodoMVC tests run across **Chromium**, **Firefox**, and **WebKit** via separate projects in `playwright.config.js`.
+
+### Visual Regression Testing
+
+| Test Suite | Scenarios |
+|---|---|
+| **Login page** | Full page screenshot, masked credentials, custom threshold, element-level (form only) |
+| **Inventory page** | Full page screenshot after login |
+| **Cart page** | Screenshot with items added to cart |
+
+Baselines are per-browser and per-OS. Update with `npx playwright test visual.spec.js --update-snapshots`.
+
 ## Project Structure
 
 ```
 tests/
-├── saucedemo/              # E-commerce E2E: login, inventory, cart, checkout
+├── saucedemo/              # E-commerce E2E: login, inventory, cart, checkout, visual regression
 │   ├── pages/              # Page objects: LoginPage, InventoryPage, CartPage, CheckoutPage
+│   ├── visual.spec.js-snapshots/  # Visual regression baselines (per-browser, per-OS)
 │   └── *.spec.js           # Test suites: one per page/feature
 ├── todomvc/                # Todo app E2E: CRUD, filtering, editing, persistence
 │   ├── pages/              # Page objects: TodoPage
@@ -49,7 +64,7 @@ tests/
     ├── pages/              # API page objects: PostsClient, UsersClient
     ├── posts.spec.js
     └── users.spec.js
-playwright.config.js        # Three projects: saucedemo, todomvc, api
+playwright.config.js        # Seven projects: saucedemo/todomvc/api × chromium/firefox/webkit
 ```
 
 ## Running Tests
@@ -86,3 +101,5 @@ npm run report
 - **Partial attribute selectors** — `[data-test^="add-to-cart"]` (starts with), `[data-test$="-img"]` (ends with) for dynamic attributes
 - **API testing with `request`** — testing REST APIs directly without a browser
 - **Multiple project configuration** — single config file running tests against different apps and APIs
+- **Cross-browser testing** — same tests across Chromium, Firefox, and WebKit
+- **Visual regression testing** — `toHaveScreenshot()` with baselines, masking, thresholds, and element-level screenshots
