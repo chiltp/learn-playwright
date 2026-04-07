@@ -9,3 +9,7 @@ node_modules/
 
 # Superpowers dev logs
 docs/superpowers/
+
+# Local tooling
+.claude/
+.vscode/
