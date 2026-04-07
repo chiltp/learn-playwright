@@ -16,7 +16,7 @@ const { PostsClient } = require("./pages/PostsClient");
 test.describe('Posts API', () => {
     let postsClient;
 
-    // Initialize the API client before all tests
+    // Initialize the API client before each test
     test.beforeEach(async ({ request }) => {
         postsClient = new PostsClient(request);
     });
