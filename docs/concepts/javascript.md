@@ -78,6 +78,51 @@ test('my test', async ({ page }) => { ... });
 test('my api test', async ({ request }) => { ... });
 ```
 
+## Promises & await
+
+A Promise is JavaScript's way of saying "I'm working on it — check back when I'm done." Some operations (like waiting for a page to load, or checking a URL) take time. Instead of freezing everything, JS hands you a Promise — a placeholder for a future result.
+
+`await` is how you pause and wait for that result before moving on.
+
+**Bakery analogy:** You order a croissant. The baker gives you a buzzer — that's the Promise. When it goes off (`await`), you go pick up your croissant. If you tried to eat the buzzer itself, that's what chaining further calls onto an unresolved Promise does.
+
+**In Playwright:** Each `await expect(...)` is its own complete statement. You can't chain two assertions together — each one needs its own `await`.
+
+```js
+// correct — two separate awaited assertions
+await expect(page).toHaveURL(/inventory/);
+await expect(someLocator).toBeVisible();
+
+// wrong — toHaveURL() returns a Promise, not a chainable object
+await expect(page).toHaveURL(/inventory/).toBeVisible();
+```
+
+---
+
+## Unused Parameters
+
+When you declare a parameter in a function signature, you're telling the runtime "give me this value." If you never use it inside the function, it misleads readers into thinking the value matters.
+
+**Bakery analogy:** A barista making a black espresso doesn't need milk, syrup, or a napkin — grabbing them anyway and putting them back unused is confusing. `{ page }` in a test that never touches `page` is the unused napkin.
+
+**In Playwright:** If a test only interacts with a page object (e.g., `loginPage`), it doesn't need `{ page }` in its signature — the page object already holds a reference to `page` internally.
+
+```js
+// page is grabbed but never used
+test('some test', async ({ page }) => {
+    await loginPage.doSomething();
+    await expect(loginPage.someLocator).toBeVisible();
+});
+
+// cleaner — only ask for what you need
+test('some test', async () => {
+    await loginPage.doSomething();
+    await expect(loginPage.someLocator).toBeVisible();
+});
+```
+
+---
+
 ## Template Literals
 
 Strings with backticks that can include variables:
