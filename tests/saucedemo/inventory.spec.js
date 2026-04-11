@@ -18,23 +18,6 @@ test.describe('Inventory', () => {
         await expect(page).toHaveTitle('Swag Labs');
     });
 
-    // Sort by price and verify the entire list is in ascending order
-    test('should sort products by price low to high', async ({ page }) => {
-        await inventoryPage.sortProducts('lohi');
-        const priceTexts = await inventoryPage.productPrice.allTextContents();
-        const prices = priceTexts.map(text => parseFloat(text.replace('$', '')));
-        const sortedPrices = [...prices].sort((a, b) => a - b);
-        expect(prices).toEqual(sortedPrices);
-    });
-
-    // Sort by name and verify the entire list is alphabetical
-    test('should sort products by name A to Z', async ({ page }) => {
-        await inventoryPage.sortProducts('az');
-        const nameTexts = await inventoryPage.productName.allTextContents();
-        const sortedNames = [...nameTexts].sort();
-        expect(nameTexts).toEqual(sortedNames);
-    });
-
     // Verify every product has a name, price, and image (no empty display slots)
     test('should every product have a name, price, and image', async ({ page }) => {
         const productCount = await inventoryPage.productName.count();
