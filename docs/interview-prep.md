@@ -1133,4 +1133,115 @@ projects: [
 
 ---
 
+## Section 16: Codebase Walk-Through Examples
+
+These are concrete talking points drawn from **your actual test suite** — use them when an interviewer asks "show me something you've built."
+
+---
+
+### 16.1 — Partial Attribute Selectors (`cart.spec.js`, `InventoryPage.js`)
+
+**The pattern:**
+```js
+// InventoryPage.js
+this.addToCartButtons = page.locator('[data-test^="add-to-cart"]');
+this.removeButtons    = page.locator('[data-test^="remove-"]');
+this.productImages    = page.locator('[data-test$="-img"]');
+```
+
+**Why it matters:** SauceDemo's buttons have data-test values like `add-to-cart-sauce-labs-backpack`. If you hardcoded the full value, you'd need a separate locator per product. `^=` (starts-with) matches all add-to-cart buttons at once.
+
+**Interview answer:** *"I use partial attribute selectors when attribute values are dynamic or include identifiers that would require hardcoding. For example, `[data-test^="add-to-cart"]` matches every add-to-cart button in the SauceDemo inventory regardless of product name — much more maintainable than one locator per product."*
+
+---
+
+### 16.2 — `.first()` vs `.nth()` and DOM shift (`cart.spec.js`)
+
+**The pattern:**
+```js
+// WRONG — after clicking "remove", indices shift
+await inventoryPage.addToCartButtons.nth(0).click();
+await inventoryPage.removeButtons.nth(0).click(); // now nth(0) is a different button
+
+// BETTER — use .first() when you always want the topmost remaining element
+await inventoryPage.addToCartButtons.first().click();
+```
+
+**Interview answer:** *"I learned that `.nth(0)` and `.first()` behave differently when the DOM shifts after an action. In the cart tests, after removing an item, the remaining buttons reindex. Using `.first()` always targets the current top element — it's more resilient than a fixed index."*
+
+---
+
+### 16.3 — Route Interception with Override Per Test (`mock.spec.js`)
+
+**The pattern:**
+```js
+// beforeEach — default mock (success)
+test.beforeEach(async ({ page }) => {
+  await page.route('**/posts/1', async route => {
+    await route.fulfill({ status: 200, body: JSON.stringify(mockPastry) });
+  });
+});
+
+// Individual test — registers AFTER beforeEach, so it takes priority (LIFO)
+test('handles server error', async ({ page }) => {
+  await page.route('**/posts/1', async route => {
+    await route.fulfill({ status: 500, body: 'Internal Server Error' });
+  });
+  // ...
+});
+```
+
+**Interview answer:** *"Playwright resolves route conflicts using last-registered-wins order (LIFO). I use this intentionally — set a default happy-path mock in `beforeEach`, then override just the error scenario in a specific test. It keeps the common setup DRY while allowing per-test variation."*
+
+---
+
+### 16.4 — Masking Dynamic Elements in Visual Tests (`visual.spec.js`)
+
+**The pattern:**
+```js
+await expect(page).toHaveScreenshot('inventory.png', {
+  mask: [page.locator('[data-test="shopping-cart-badge"]')],
+  maxDiffPixels: 100
+});
+```
+
+**Interview answer:** *"Visual regression tests break if dynamic content like cart counts or timestamps changes between runs. I use the `mask` option to redact those elements — Playwright replaces them with a solid color block. The baseline comparison then only fails when real layout or styling changes, not when data changes."*
+
+---
+
+### 16.5 — API Client as a Page Object (`posts.spec.js`, `PostsClient.js`)
+
+**The pattern:**
+```js
+class PostsClient {
+  constructor(request) {
+    this.request = request;
+    this.baseUrl = 'https://jsonplaceholder.typicode.com';
+  }
+  async getPost(id) {
+    return this.request.get(`${this.baseUrl}/posts/${id}`);
+  }
+  async createPost(data) {
+    return this.request.post(`${this.baseUrl}/posts`, { data });
+  }
+}
+```
+
+**Interview answer:** *"I applied the Page Object Model pattern to API testing too. The `PostsClient` class wraps all HTTP calls just like a UI page object wraps locators and actions. Tests only call named methods — they never construct URLs directly. If the base URL or endpoint changes, I update one class, not every test."*
+
+---
+
+### 16.6 — CI/CD Skip for Visual Tests (`visual.spec.js`)
+
+**The pattern:**
+```js
+test.beforeEach(async ({ page }, testInfo) => {
+  test.skip(!!process.env.CI, 'Visual tests skipped in CI — run locally to update baselines');
+});
+```
+
+**Interview answer:** *"Visual regression baselines are OS-specific — a screenshot on macOS looks slightly different than on Linux in CI due to font rendering. Rather than fight false positives, we skip visual tests in CI and run them locally against a consistent environment. This is a pragmatic trade-off I'd revisit if we set up a dedicated Linux CI image to generate the baselines."*
+
+---
+
 Good luck with your interviews, Chi! You've built real tests, not just read about them — that's your biggest advantage.
