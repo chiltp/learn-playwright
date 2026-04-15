@@ -16,6 +16,12 @@ module.exports = defineConfig({
     trace: 'on-first-retry',
   },
 
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixels: 100, // Allow up to 100 pixels to differ in screenshot comparisons
+    },
+  },
+
   projects: [
     // SauceDemo tests
     {

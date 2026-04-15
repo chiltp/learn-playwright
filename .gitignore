@@ -13,3 +13,10 @@ docs/superpowers/
 # Local tooling
 .claude/
 .vscode/
+
+# macOS
+.DS_Store
+
+# Personal notes
+docs/interview-prep.md
+docs/learning-plan.md

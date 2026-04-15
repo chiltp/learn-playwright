@@ -5,14 +5,12 @@ const { InventoryPage } = require('./pages/InventoryPage');
 test.describe('Sorting', () => {
     let loginPage;
     let inventoryPage;
-    let page;
 
-    // Log in and land on the inventory page before all tests
-    test.beforeAll(async ({browser }) => {
-        page = await browser.newPage();
-        await page.goto('https://www.saucedemo.com/');
+    // Log in and land on the inventory page before each test
+    test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);
         inventoryPage = new InventoryPage(page);
+        await loginPage.goto();
         await loginPage.login('standard_user', 'secret_sauce');
     });
 
@@ -31,12 +29,20 @@ test.describe('Sorting', () => {
         expect(nameTexts).toEqual(sortedNames);
     });
 
-    test.afterEach(async () => {
-        // Reset sorting to default after each test
-        await inventoryPage.sortProducts('az');
+    test('should sort products by price low to high', async () => {
+        await inventoryPage.sortProducts('lohi');
+        const priceTexts = await inventoryPage.productPrice.allTextContents();
+        const prices = priceTexts.map(text => parseFloat(text.replace('$', '')));
+        const sortedPrices = [...prices].sort((a, b) => a - b);
+        expect(prices).toEqual(sortedPrices);
     });
 
-    test.afterAll(async () => {
-        await page.close();
+    test('should sort products by price high to low', async () => {
+        await inventoryPage.sortProducts('hilo');
+        const priceTexts = await inventoryPage.productPrice.allTextContents();
+        const prices = priceTexts.map(text => parseFloat(text.replace('$', '')));
+        const sortedPrices = [...prices].sort((a, b) => b - a);
+        expect(prices).toEqual(sortedPrices);
     });
+
 });
