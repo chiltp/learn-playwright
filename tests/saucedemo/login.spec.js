@@ -5,6 +5,9 @@ const { InventoryPage } = require('./pages/InventoryPage');
 test.describe('Login', () => {
     let loginPage;
 
+    // Clear storage state before each test to ensure a clean slate
+    test.use({ storageState: { cookies: [], origins: [] } });
+
     // Navigate to the login page before each test
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page);

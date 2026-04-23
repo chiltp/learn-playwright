@@ -23,31 +23,42 @@ module.exports = defineConfig({
   },
 
   projects: [
+    // SauceDemo tests setup - runs first to save login state, then skipped in later runs
+    {
+      name: 'setup',
+      testMatch: /auth\.setup\.js/,
+    },
     // SauceDemo tests
     {
       name: 'saucedemo-chromium',
       testDir: './tests/saucedemo',
+      dependencies: ['setup'],
       use: {
         baseURL: 'https://www.saucedemo.com',
         ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json',
       },
     },
     // SauceDemo tests
     {
       name: 'saucedemo-firefox',
       testDir: './tests/saucedemo',
+      dependencies: ['setup'],
       use: {
         baseURL: 'https://www.saucedemo.com',
         ...devices['Desktop Firefox'],
+        storageState: 'playwright/.auth/user.json',
       },
     },
      // SauceDemo tests
     {
       name: 'saucedemo-webkit',
       testDir: './tests/saucedemo',
+      dependencies: ['setup'],
       use: {
         baseURL: 'https://www.saucedemo.com',
         ...devices['Desktop Safari'],
+        storageState: 'playwright/.auth/user.json',
       },
     },
     // TodoMVC tests
